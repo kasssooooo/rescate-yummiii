@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Operación: Rescate de Yummi 🐶</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    min-height:100vh;
+
+    font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+    background:
+    radial-gradient(circle at 20% 20%,#fff7b0,transparent 30%),
+    radial-gradient(circle at 80% 80%,#ffe477,transparent 30%),
+    linear-gradient(135deg,#171717,#342900,#171717);
+
+    color:white;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    overflow-x:hidden;
+}
+
+#app{
+    width:94%;
+    max-width:720px;
+    padding:20px 0;
+}
+
+.pantalla{
+    display:none;
+    animation:entrada .6s ease;
+}
+
+.pantalla.activa{
+    display:block;
+}
+
+.caja{
+    background:rgba(25,25,25,.94);
+
+    border:2px solid #e6b928;
+
+    border-radius:25px;
+
+    padding:35px 25px;
+
+    text-align:center;
+
+    box-shadow:
+    0 0 35px rgba(255,205,45,.18);
+}
+
+.logo{
+    font-size:80px;
+
+    animation:
+    flotar 2s infinite alternate;
+}
+
+h1{
+    font-size:clamp(32px,8vw,55px);
+
+    color:#ffd83d;
+
+    margin:15px 0;
+}
+
+h2{
+    color:#ffd83d;
+
+    font-size:clamp(25px,6vw,38px);
+}
+
+p{
+    font-size:18px;
+
+    line-height:1.6;
+}
+
+.subtitulo{
+    color:#aaa;
+}
+
+button{
+    display:block;
+
+    width:90%;
+
+    max-width:500px;
+
+    margin:13px auto;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:15px;
+
+    background:#e0ac19;
+
+    color:#171717;
+
+    font-size:17px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+button:hover{
+    transform:scale(1.04);
+
+    background:#ffd83d;
+}
+
+button:active{
+    transform:scale(.96);
+}
+
+.codigo{
+    width:90%;
+
+    max-width:400px;
+
+    padding:17px;
+
+    margin:20px auto;
+
+    display:block;
+
+    border-radius:12px;
+
+    border:2px solid #d6a914;
+
+    background:#111;
+
+    color:#fff;
+
+    font-size:25px;
+
+    text-align:center;
+
+    letter-spacing:7px;
+}
+
+.perro{
+    font-size:100px;
+
+    animation:
+    perrito 1s infinite alternate;
+}
+
+.prueba{
+    background:#222;
+
+    padding:20px;
+
+    border-radius:18px;
+
+    margin:20px 0;
+}
+
+.mensaje{
+    min-height:28px;
+
+    color:#ffd83d;
+
+    font-weight:bold;
+
+    margin-top:15px;
+}
+
+.error{
+    color:#ff7676;
+}
+
+.correcto{
+    color:#7dff91;
+}
+
+.bar{
+    width:100%;
+
+    height:18px;
+
+    background:#333;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    margin:20px 0;
+}
+
+.progreso{
+    height:100%;
+
+    width:0%;
+
+    background:#ffd83d;
+
+    transition:1s;
+}
+
+.caja-yummi{
+    border:2px dashed #ffd83d;
+
+    border-radius:20px;
+
+    padding:20px;
+
+    margin-top:20px;
+}
+
+.llave{
+    font-size:90px;
+
+    animation:
+    girar 2s infinite linear;
+}
+
+.grande{
+    font-size:90px;
+}
+
+.carta{
+    display:none;
+
+    background:#fff7ce;
+
+    color:#493800;
+
+    border-radius:20px;
+
+    padding:25px;
+
+    margin-top:20px;
+
+    text-align:left;
+
+    animation:entrada .8s ease;
+}
+
+.carta h2{
+    color:#9b7200;
+
+    text-align:center;
+}
+
+.flores{
+    font-size:65px;
+
+    margin:20px 0;
+
+    animation:
+    aparecerFlores 1.5s ease;
+}
+
+.final{
+    font-size:70px;
+
+    animation:
+    latir 1.2s infinite;
+}
+
+.particle{
+    position:fixed;
+
+    top:-30px;
+
+    pointer-events:none;
+
+    font-size:25px;
+
+    animation:caer linear forwards;
+
+    z-index:999;
+}
+
+@keyframes entrada{
+
+    from{
+        opacity:0;
+        transform:translateY(30px) scale(.97);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+
+}
+
+@keyframes flotar{
+
+    from{
+        transform:translateY(0);
+    }
+
+    to{
+        transform:translateY(-12px);
+    }
+
+}
+
+@keyframes perrito{
+
+    from{
+        transform:rotate(-5deg);
+    }
+
+    to{
+        transform:rotate(5deg);
+    }
+
+}
+
+@keyframes girar{
+
+    0%{
+        transform:rotate(-8deg);
+    }
+
+    50%{
+        transform:rotate(8deg);
+    }
+
+    100%{
+        transform:rotate(-8deg);
+    }
+
+}
+
+@keyframes latir{
+
+    50%{
+        transform:scale(1.15);
+    }
+
+}
+
+@keyframes aparecerFlores{
+
+    from{
+        transform:scale(.1);
+        opacity:0;
+    }
+
+    to{
+        transform:scale(1);
+        opacity:1;
+    }
+
+}
+
+@keyframes caer{
+
+    from{
+        transform:
+        translateY(-20px)
+        rotate(0deg);
+
+        opacity:1;
+    }
+
+    to{
+        transform:
+        translateY(110vh)
+        rotate(360deg);
+
+        opacity:0;
+    }
+
+}
+
+@media(max-width:500px){
+
+    .caja{
+        padding:28px 17px;
+    }
+
+    .logo{
+        font-size:65px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="app">
+
+
+<!-- ================================= -->
+<!-- INTRO -->
+<!-- ================================= -->
+
+<section id="inicio" class="pantalla activa">
+
+<div class="caja">
+
+<div class="logo">
+🚨🐶
+</div>
+
+<h1>
+¡DANAE!
+</h1>
+
+<h2>
+TENEMOS UN PROBLEMA.
+</h2>
+
+<p>
+Se ha producido una emergencia
+de máxima importancia.
+</p>
+
+<p>
+<strong>
+Yummi ha desaparecido.
+</strong>
+😨😭
+</p>
+
+<p class="subtitulo">
+Última ubicación conocida:
+en mi casa.
+</p>
+
+<button onclick="mostrar('secuestro')">
+INVESTIGAR EL CASO
+</button>
+
+</div>
+
+</section>
+
+
+
+<!-- ================================= -->
+<!-- MENSAJE DEL SECUESTRADOR -->
+<!-- ================================= -->
+
+<section id="secuestro" class="pantalla">
+
+<div class="caja">
+
+<div class="grande">
+😈
+</div>
+
+<h1>
+¡JA JA JA!
+</h1>
+
+<p>
+<strong>
+Danae...
+</strong>
+</p>
+
+<p>
+Tengo a Yummi
+</p>
+
+<div class="caja-yummi">
+
+<div class="perro">
+🐶
+</div>
+
+<p>
+No te preocupes.
+</p>
+
+<p>
+Está perfectamente bien.
+</p>
+
+<p>
+De hecho...
+</p>
+
+<strong>
+esta meando mientras lees esto.
+</strong>
+
+</div>
+
+<p>
+Pero si quieres recuperarla...
+</p>
+
+<h2>
+TENDRÁS QUE SUPERAR MIS PRUEBAS.
+</h2>
+
+<p class="subtitulo">
+Atentamente:
+El misterioso secuestrador 🥸
+</p>
+
+<button onclick="mostrar('prueba1')">
+ACEPTAR LA MISIÓN
+</button>
+
+</div>
+
+</section>
+
+
+
+<!-- ================================= -->
+<!-- PRUEBA 1 -->
+<!-- ================================= -->
+
+<section id="prueba1" class="pantalla">
+
+<div class="caja">
+
+<h2>
+PRUEBA 1
+</h2>
+
+<p>
+El secuestrador dejó una pregunta.
+</p>
+
+<div class="prueba">
+
+<p>
+¿Que es lo que mas prefiere Yummi?
+</p>
+
+<button onclick="incorrecto('m1')">
+A) Danae
+</button>
+
+<button onclick="correcto1()">
+B) La comida
+</button>
+
+<button onclick="incorrecto('m1')">
+C) Javier
+</button>
+
+</div>
+
+<div id="m1" class="mensaje"></div>
+
+</div>
+
+</section>
+
+<!-- NUEVA PANTALLA DESPUÉS DE LA PRUEBA 1 -->
+
+<section id="comida" class="pantalla">
+
+<div class="caja">
+
+<div class="grande">
+🐶🍖
+</div>
+
+<h1>
+Así es...
+</h1>
+
+<h2>
+Yummi siempre preferirá la comida.
+</h2>
+
+<p>
+Podemos intentar engañarla,
+</p>
+
+<p>
+podemos ofrecerle juguetes,
+</p>
+
+<p>
+podemos llamarla por su nombre...
+</p>
+
+<p>
+pero si aparece comida...
+</p>
+
+<h2>
+TODO SE ACABÓ. 😂🐶
+</h2>
+
+<p>
+La comida siempre gana.
+</p>
+
+<button onclick="mostrar('prueba2')">
+CONTINUAR ➡️
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ================================= -->
+<!-- PRUEBA 2 -->
+<!-- ================================= -->
+
+<section id="prueba2" class="pantalla">
+
+<div class="caja">
+
+<h2>
+ PRUEBA 2
+</h2>
+
+<p>
+El secuestrador dice:
+</p>
+
+<p>
+<em>
+"Solo alguien que conozca a Danae
+podrá pasar."
+</em>
+</p>
+
+<div class="prueba">
+
+<p>
+¿Qué es algo que Javier disfruta
+hacer con Danae?
+</p>
+
+<button onclick="incorrecto('m2')">
+Cagar en un baño matrimonial
+</button>
+
+<button onclick="incorrecto('m2')">
+Ganar los oscares juntos
+</button>
+
+<button onclick="correcto2()">
+Hablar
+</button>
+
+</div>
+
+<div id="m2" class="mensaje"></div>
+
+</div>
+
+</section>
+
+
+
+<!-- ================================= -->
+<!-- PRUEBA 3 -->
+<!-- ================================= -->
+
+<section id="prueba3" class="pantalla">
+
+<div class="caja">
+
+<h2>
+PRUEBA 3
+</h2>
+
+<p>
+Yummi está aburrida en su escondite.
+</p>
+
+<p>
+Necesita que recuerdes otra cosa
+que hacen juntos.
+</p>
+
+<div class="prueba">
+
+<p>
+¿Qué suelen disfrutar
+durante algunas noches?
+</p>
+
+<button onclick="incorrecto('m3')">
+Hacer una competencia de cocina
+</button>
+
+<button onclick="correcto3()">
+Ver películas
+</button>
+
+<button onclick="incorrecto('m3')">
+Cantar a todo volumen
+</button>
+
+</div>
+
+<div id="m3" class="mensaje"></div>
+
+</div>
+
+</section>
+
+
+
+<!-- ================================= -->
+<!-- PRUEBA 4 TROLL -->
+<!-- ================================= -->
+
+<section id="prueba4" class="pantalla">
+
+<div class="caja">
+
+<h2>
+PRUEBA 4
+</h2>
+
+<p>
+Esta prueba parece fácil.
+</p>
+
+<p>
+<strong>
+Pero no lo es.
+</strong>
+😈
+</p>
+
+<div class="prueba">
+
+<p>
+¿Cuál de estas opciones
+es sospechosamente incorrecta?
+</p>
+
+<button onclick="incorrecto('m4')">
+Yummi secuestrada
+</button>
+
+<button onclick="incorrecto('m4')">
+Flores amarillas
+</button>
+
+<button onclick="correcto4()">
+Un dinosaurio secuestrando a Yummi
+</button>
+
+<button onclick="incorrecto('m4')">
+Javier💜
+</button>
+
+</div>
+
+<div id="m4" class="mensaje"></div>
+
+</div>
+
+</section>
+
+
+
+<!-- ================================= -->
+<!-- PRUEBA 5 -->
+<!-- ================================= -->
+
+<section id="prueba5" class="pantalla">
+
+<div class="caja">
+
+<h2>
+PRUEBA 5
+</h2>
+
+<p>
+El secuestrador dejó un código.
+</p>
+
+<p>
+<strong>
+La pista es:
+</strong>
+</p>
+
+<p>
+"Piensa en algo que Javier
+quiere conseguir al hacer esto."
+</p>
+
+<div class="prueba">
+
+<p>
+¿Qué quiere conseguir?
+</p>
+
+<button onclick="incorrecto('m5')">
+Un millón de dólares 
+</button>
+
+<button onclick="incorrecto('m5')">
+Ser increible
+</button>
+
+<button onclick="correcto5()">
+No se...
+</button>
+
+</div>
+
+<div id="m5" class="mensaje"></div>
+
+</div>
+
+</section>
+
+
+
+<!-- ================================= -->
+<!-- CODIGO -->
+<!-- ================================= -->
+
+<section id="codigo" class="pantalla">
+
+<div class="caja">
+
+<h2>
+ CÓDIGO DE LIBERACIÓN
+</h2>
+
+<p>
+Has superado todas las pruebas.
+</p>
+
+<p>
+Ahora necesitas introducir
+el código para abrir la jaula.
+</p>
+
+<div class="prueba">
+
+<p>
+<strong>
+PISTA:
+</strong>
+</p>
+
+<p>
+¿Cuántas letras tiene
+la palabra YUMMI?
+</p>
+
+<input
+id="inputCodigo"
+class="codigo"
+maxlength="2"
+inputmode="numeric"
+placeholder="?"
+>
+
+<button onclick="comprobarCodigo()">
+ABRIR JAULA
+</button>
+
+<div
+id="mensajeCodigo"
+class="mensaje">
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- ================================= -->
+<!-- RESCATE -->
+<!-- ================================= -->
+
+<section id="rescate" class="pantalla">
+
+<div class="caja">
+
+<div class="llave">
+🔑
+</div>
+
+<h1>
+¡CLIC!
+</h1>
+
+<h2>
+LA JAULA SE HA ABIERTO.
+</h2>
+
+<div class="perro">
+🐶
+</div>
+
+<h1>
+¡YUMMI HA SIDO LIBERADA!
+</h1>
+
+<p>
+🎉🎉🎉
+</p>
+
+<p>
+Yummi logró escapar (con ayuda).
+</p>
+
+<button onclick="mostrar('revelacion')">
+¿PERO QUIÉN HIZO TODO ESTO?😑🤨
+</button>
+
+</div>
+
+</section>
+
+
+
+<!-- ================================= -->
+<!-- REVELACION -->
+<!-- ================================= -->
+
+<section id="revelacion" class="pantalla">
+
+<div class="caja">
+
+<div class="grande">
+🥸
+</div>
+
+<h2>
+Tenemos que admitir algo...
+</h2>
+
+<p>
+El supuesto secuestrador...
+</p>
+
+<h1>
+ERA JAVIER.
+</h1>
+
+<p>
+😈
+</p>
+
+<p>
+Yummi nunca estuvo en peligro.
+</p>
+
+<p>
+Todo esto era una misión
+secreta para prepararte
+una sorpresa.
+</p>
+
+<button onclick="mostrar('flores')">
+DESCUBRIR LA VERDADERA MISIÓN
+</button>
+
+</div>
+
+</section>
+
+
+
+<!-- ================================= -->
+<!-- FLORES -->
+<!-- ================================= -->
+
+<section id="flores" class="pantalla">
+
+<div class="caja">
+
+<div class="flores">
+
+</div>
+
+<h1>
+MISIÓN COMPLETADA
+</h1>
+
+<h2>
+🌻 Para tí 🌻
+</h2>
+
+<p>
+No puedo entregarte estas flores
+en persona...
+</p>
+
+<p>
+Así que tuve que recurrir a
+medidas extremas.
+</p>
+
+<p>
+Primero:
+<strong>
+secuestrar digitalmente a Yummi.
+</strong>
+
+</p>
+
+<p>
+Segundo:
+hacerte pasar todas estas pruebas.
+</p>
+
+<p>
+Y tercero:
+</p>
+
+<h2>
+darte unas flores. 💜
+</h2>
+
+<button onclick="abrirCarta()">
+💌 HAY UNA ÚLTIMA COSA
+</button>
+
+</div>
+
+</section>
+
+
+
+<!-- ================================= -->
+<!-- CARTA -->
+<!-- ================================= -->
+
+<section id="carta" class="pantalla">
+
+<div class="caja">
+
+<div class="grande">
+💌
+</div>
+
+<h2>
+Para Danae
+</h2>
+
+<p>
+
+</p>
+
+<button onclick="mostrarCarta()">
+ ABRIR
+</button>
+
+<div id="cartaTexto" class="carta">
+
+<h2>
+Danae 💜
+</h2>
+
+<p>
+Te conozco desde el año pasado,
+y desde entonces hemos compartido
+muchos momentos buenos y malos.
+</p>
+
+<p>
+Tengo que admitir que me gustan muchas cosas y, aunque a veces no te las demuestre, igual las puedo seguir sintiendo. Así que cuidao, que es un arma de doble filo... mentiraaa jdsajdasjdas 💜
+</p>
+
+<p>
+
+</p>
+
+<p>
+Y aunque esta vez no pueda
+entregarte unas flores físicamente,
+quería encontrar otra manera
+de hacerlo.
+</p>
+
+<p>
+Y pensé:
+</p>
+
+<p>
+<strong>
+¿Por qué no secuestrar a Yummi? Aunque no sé... a lo mejor pude secuestrarte a ti, quizás.
+</strong>
+</p>
+
+<p>
+Bueno...
+</strong>
+digitalmente.
+</strong>
+A lo mejor a ti no te secuestro digitalmente, así que cuidado...
+</p>
+
+<p>
+Te gusto este secuestro???
+</p>
+
+<h2>
+Te quiero mucho. 💜
+</h2>
+
+<p style="text-align:center">
+— Javier
+</p>
+
+</div>
+
+<button
+id="botonFinal"
+style="display:none"
+onclick="mostrar('final')">
+
+ TERMINAR MISIÓN
+
+</button>
+
+</div>
+
+</section>
+
+
+
+<!-- ================================= -->
+<!-- FINAL -->
+<!-- ================================= -->
+
+<section id="final" class="pantalla">
+
+<div class="caja">
+
+<div class="final">
+🐶🌻💜
+</div>
+
+<h1>
+¡MISIÓN COMPLETADA!
+</h1>
+
+<p>
+Yummi está libre.
+</p>
+
+<p>
+Danae ha recibido sus flores.
+</p>
+
+<p>
+Y Javier se fue a mear.
+</p>
+
+<div class="flores">
+
+</div>
+
+<h2>
+FIN 💜
+</h2>
+
+<p>
+O quizás...
+</p>
+
+<h2>
+apenas comienza. 
+</h2>
+
+<p>
+— Javier 
+</p>
+
+</div>
+
+</section>
+
+
+</div>
+
+
+
+<script>
+
+/* ============================= */
+/* CAMBIAR PANTALLA */
+/* ============================= */
+
+function mostrar(id){
+
+    document
+    .querySelectorAll(".pantalla")
+    .forEach(p=>{
+        p.classList.remove("activa");
+    });
+
+    document
+    .getElementById(id)
+    .classList.add("activa");
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+
+/* ============================= */
+/* RESPUESTAS INCORRECTAS */
+/* ============================= */
+
+function incorrecto(id){
+
+    const mensajes=[
+
+        "Que Yummi no vea esto, por Dios.",
+        "PFFFFFFFF!!!!",
+        "QUE NOOOOOOOOOOO.",
+        "ESA NOOOOOO.",
+        "Yapooooooo, te voy a rebanar.",
+        "¿Otra vez te equivocas?"
+    ];
+
+    document
+    .getElementById(id)
+    .textContent=
+    mensajes[
+        Math.floor(
+            Math.random()*mensajes.length
+        )
+    ];
+
+}
+
+
+/* ============================= */
+/* PRUEBAS CORRECTAS */
+/* ============================= */
+
+function correcto1(){
+
+    document
+    .getElementById("m1")
+    .textContent=
+    "Esa Yummi solo come.";
+
+    crearParticulas();
+
+    setTimeout(()=>{
+        mostrar("prueba2");
+    },900);
+
+}
+
+
+function correcto2(){
+
+    document
+    .getElementById("m2")
+    .textContent=
+    "VAMOOOOOOOSSSS.";
+
+    setTimeout(()=>{
+        mostrar("prueba3");
+    },900);
+
+}
+
+
+function correcto3(){
+
+    document
+    .getElementById("m3")
+    .textContent=
+    "Muy bien mi niña.";
+
+    setTimeout(()=>{
+        mostrar("prueba4");
+    },900);
+
+}
+
+
+function correcto4(){
+
+    document
+    .getElementById("m4")
+    .textContent=
+    "Obvioooo. ¿Un dinosaurio? pffff";
+
+    setTimeout(()=>{
+        mostrar("prueba5");
+    },1000);
+
+}
+
+
+function correcto5(){
+
+    document
+    .getElementById("m5")
+    .textContent=
+    "Siempre me dices eso💜.";
+
+    setTimeout(()=>{
+        mostrar("codigo");
+    },1000);
+
+}
+
+
+/* ============================= */
+/* CÓDIGO */
+/* ============================= */
+
+function comprobarCodigo(){
+
+    const codigo=
+    document
+    .getElementById("inputCodigo")
+    .value
+    .trim();
+
+    const mensaje=
+    document
+    .getElementById("mensajeCodigo");
+
+
+    if(codigo==="5"){
+
+        mensaje.textContent=
+        "¡CÓDIGO CORRECTO!";
+
+        mensaje.className=
+        "mensaje correcto";
+
+        crearParticulas();
+
+        setTimeout(()=>{
+            mostrar("rescate");
+        },1200);
+
+    }else{
+
+        mensaje.textContent=
+        "Lee bien mi niña.";
+
+        mensaje.className=
+        "mensaje error";
+
+    }
+
+}
+
+
+/* ============================= */
+/* CARTA */
+/* ============================= */
+
+function abrirCarta(){
+
+    mostrar("carta");
+
+}
+
+
+function mostrarCarta(){
+
+    document
+    .getElementById("cartaTexto")
+    .style.display="block";
+
+    document
+    .getElementById("botonFinal")
+    .style.display="block";
+
+    crearParticulas();
+
+}
+
+
+/* ============================= */
+/* PARTICULAS */
+/* ============================= */
+
+function crearParticulas(){
+
+    const elementos=[
+        "❤️",
+        "💛",
+        "🌻",
+        "🐶",
+        "✨"
+    ];
+
+    for(let i=0;i<25;i++){
+
+        const p=
+        document.createElement("div");
+
+        p.className="particle";
+
+        p.textContent=
+        elementos[
+            Math.floor(
+                Math.random()*
+                elementos.length
+            )
+        ];
+
+        p.style.left=
+        Math.random()*100+"vw";
+
+        p.style.animationDuration=
+        (3+Math.random()*4)+"s";
+
+        document.body.appendChild(p);
+
+        setTimeout(()=>{
+            p.remove();
+        },7000);
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
